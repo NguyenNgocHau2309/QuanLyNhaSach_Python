@@ -1,0 +1,192 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Trang chủ{% endblock %}
+
+{% block content %}
+<div class="Banner">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img
+                    src="https://cdn0.fahasa.com/media/magentothem/banner7/YearEndSaleT1223_Banner_An_resize_-1_Slide_840x320.jpg">
+            </div>
+            <div class="swiper-slide"><img
+                    src="https://cdn0.fahasa.com/media/magentothem/banner7/Donkho_BannerM_Banner_840x320.jpg"></div>
+            <div class="swiper-slide"><img
+                    src="https://cdn0.fahasa.com/media/magentothem/banner7/DinhTi_T1223_KC_BannerSlide_840x320.jpg">
+            </div>
+            <div class="swiper-slide"><img
+                    src="https://cdn0.fahasa.com/media/magentothem/banner7/Gold_T1223_Ver1_MCbooks_Slide_840x320.jpg">
+            </div>
+
+        </div>
+        <div class="swiper-button-next swiperbtn"></div>
+        <div class="swiper-button-prev swiperbtn"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<div class="container newest">
+    <div class="text-center h1"></div>
+    <ul class="pagination">
+        {% for i in range(pages) %}
+        <li class="page-item"><a class="page-link text-black" href="/?page={{i + 1}}">{{ i+1 }}</a></li>
+        {% endfor %}
+
+    </ul>
+</div>
+<section class="mt-12">
+    <div class="container mt-8">
+        <div class="row">
+            {% for p in products %}
+            <div class="col-md-4 col-xs-10">
+
+                <div class="card my-2">
+                    <img class="card-img-top" src="{{p.image}}" alt="Card image"
+                         style="max-width:400px;max-height:400px">
+                    <div class="card-body">
+                        <h4 class="card-title">{{p.name}}</h4>
+                        <p class="card-text">Giá: {{ "{:,.0f}".format(p.price)}} VND</p>
+                        <div>
+                            <a href="/products/{{p.id}}" class="btn btn-primary">Xem chi tiết</a>
+                            <a href="#" class="btn btn-danger" onclick="addToCart({{p.id}}, '{{p.name}}', {{p.price}})">Thêm
+                                vào giỏ</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!--<div class="text-center h1 mt-4">Sách mới nhất</div>-->
+<!--<div class="swiperFavBooks mt-4">-->
+<!--    <div class="Banner">-->
+<!--        <div class="swiper myFavSwiper">-->
+<!--            <div class="swiper-wrapper">-->
+<!--                {% for p in products %}-->
+<!--                <div class="swiper-slide">-->
+
+<!--                    <div class="card my-2">-->
+<!--                        <img class="card-img-top" src="{{p.image}}" alt="Card image"-->
+<!--                             style="max-width:400px;max-height:400px">-->
+<!--                        <div class="card-body">-->
+<!--                            <h4 class="card-title">{{p.name}}</h4>-->
+<!--                            <p class="card-text">Giá: {{ "{:,.0f}".format(p.price)}} VND</p>-->
+<!--                            <div>-->
+<!--                                <a href="/products/{{p.id}}" class="btn btn-primary">Xem chi tiết</a>-->
+<!--                                <a href="#" class="btn btn-danger"-->
+<!--                                   onclick="addToCart({{p.id}}, '{{p.name}}', {{p.price}})">Thêm vào giỏ</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                {% endfor %}-->
+<!--                &lt;!&ndash;            <div class="swiper-slide">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <img src="https://cdn0.fahasa.com/media/magentothem/banner7/YearEndSaleT1223_Banner_An_resize_-1_Slide_840x320.jpg">&ndash;&gt;-->
+<!--                &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            </div>-->
+
+<!--            <div class="swiper-pagination"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div class="swiperFavBooks mt-4">
+    <div class="Banner">
+        <div class="swiper myFavSwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img
+                        src="https://cdn0.fahasa.com/media/magentothem/banner7/YearEndSaleT1223_Banner_An_resize_-1_Slide_840x320.jpg">
+                </div>
+                <div class="swiper-slide"><img
+                        src="https://cdn0.fahasa.com/media/magentothem/banner7/Donkho_BannerM_Banner_840x320.jpg"></div>
+                <div class="swiper-slide"><img
+                        src="https://cdn0.fahasa.com/media/magentothem/banner7/DinhTi_T1223_KC_BannerSlide_840x320.jpg">
+                </div>
+                <div class="swiper-slide"><img
+                        src="https://cdn0.fahasa.com/media/magentothem/banner7/Gold_T1223_Ver1_MCbooks_Slide_840x320.jpg">
+                </div>
+
+            </div>
+
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      centeredSlides: true,
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+    var swiper = new Swiper(".myFavSwiper", {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      centeredSlides: true,
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+
+      },
+
+    });
+</script>
+<style>
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .swiperbtn{
+        color: #000;
+        font-weight: 800;
+    }
+    .myFavSwiper img{
+        min-height:300px
+    }
+    .newest{
+        margin-top:2rem;
+    }
+    .swiper-pagination-bullet{
+        background: #000;
+        height: 20px;
+        width: 20px;
+    }
+</style>
+{% endblock %}
+
+
